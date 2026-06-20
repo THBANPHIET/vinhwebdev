@@ -3,108 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexAI - Nền Tảng AI Thế Hệ Mới</title>
+    <title>NexAI Premium Dashboard - ISO Standard</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* --- HỆ THỐNG BIẾN CHỦ ĐỀ VÀ MÀU SẮC (PREMIUM TECH) --- */
+        /* --- HỆ THỐNG MÀU SẮC CHUẨN UI SAAS --- */
         :root {
-            --bg-deep: #060913;
-            --bg-surface: #0f1524;
-            --bg-surface-hover: #172034;
+            --bg-app: #080c14;
+            --bg-card: #111726;
+            --bg-input: #182032;
             --primary: #4f46e5;
-            --primary-glow: rgba(79, 70, 229, 0.4);
-            --secondary: #06b6d4;
-            --accent: #d946ef;
+            --primary-hover: #4338ca;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
             --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border: rgba(255, 255, 255, 0.08);
-            --glass: rgba(15, 21, 36, 0.7);
-            --gradient-text: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
-            --gradient-accent: linear-gradient(90deg, #4f46e5, #06b6d4);
+            --text-muted: #64748b;
+            --border: rgba(255, 255, 255, 0.05);
+            --border-focus: rgba(79, 70, 229, 0.4);
+            --glass: rgba(17, 23, 38, 0.7);
         }
 
-        /* --- THIẾT LẬP CƠ BẢN --- */
+        /* --- KHỞI TẠO HỆ THỐNG LAYOUT --- */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg-deep);
+            background-color: var(--bg-app);
             color: var(--text-main);
             overflow-x: hidden;
+            padding-top: 80px; /* Chừa khoảng trống cho Fixed Header */
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.3s ease;
-        }
+        /* Tùy chỉnh thanh cuộn siêu mảnh */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-app); }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 99px; }
 
-        ul {
-            list-style: none;
-        }
-
-        /* --- HIỆU ỨNG NỀN ĐỘNG NÂNG CAO --- */
-        .bg-glows {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            pointer-events: none;
-        }
-        .glow-1 {
-            position: absolute;
-            top: -10%;
-            left: 20%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
-            filter: blur(80px);
-        }
-        .glow-2 {
-            position: absolute;
-            top: 40%;
-            right: -10%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(6, 182, 212, 0.25) 0%, transparent 70%);
-            filter: blur(80px);
-        }
-
-        /* --- HEADER & NAVIGATION --- */
+        /* --- HEADER & MEGAMENU PHÂN TẦNG --- */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 1000;
+            height: 80px;
             background: var(--glass);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
+            z-index: 100;
+            display: flex;
+            align-items: center;
         }
 
         .navbar {
-            max-width: 1300px;
+            width: 100%;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 1.2rem 2rem;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 800;
-            letter-spacing: -1px;
-            background: linear-gradient(90deg, #fff, var(--secondary));
+            background: linear-gradient(90deg, #fff, #60a5fa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             display: flex;
@@ -112,915 +81,550 @@
             gap: 0.5rem;
         }
 
-        /* --- CẤU TRÚC MAIN NAV & MEGAMENU --- */
         .nav-links {
             display: flex;
+            gap: 2.5rem;
             align-items: center;
-            gap: 2rem;
         }
 
-        .nav-item {
-            position: relative;
-        }
+        .nav-item { position: relative; }
 
         .nav-link {
+            color: var(--text-muted);
             font-weight: 500;
             font-size: 0.95rem;
-            color: var(--text-muted);
-            padding: 0.5rem 0;
+            padding: 1.5rem 0;
+            cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 0.25rem;
+            gap: 0.3rem;
+            transition: color 0.2s;
         }
+        .nav-link:hover, .nav-item:hover .nav-link { color: #fff; }
 
-        .nav-link:hover, .nav-item:hover .nav-link {
-            color: var(--text-main);
-        }
-
-        /* Thiết kế khối Mega Menu */
+        /* Cấu trúc thiết kế Mega Menu chuẩn ISO */
         .megamenu {
             position: absolute;
             top: 100%;
             left: 50%;
-            transform: translateX(-50%) translateY(20px);
-            width: 800px;
-            background: var(--bg-surface);
+            transform: translateX(-50%) translateY(15px);
+            width: 760px;
+            background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 2rem;
             display: grid;
-            grid-template-columns: 2fr 2fr 1.5fr;
+            grid-template-columns: repeat(2, 1fr) 1.2fr;
             gap: 2rem;
             opacity: 0;
             visibility: hidden;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .nav-item:hover .megamenu {
             opacity: 1;
             visibility: visible;
-            transform: translateX(-50%) translateY(10px);
+            transform: translateX(-50%) translateY(0);
         }
 
         .menu-col h4 {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
+            color: #60a5fa;
             letter-spacing: 1px;
-            color: var(--secondary);
             margin-bottom: 1rem;
         }
 
-        .menu-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
+        .menu-list { display: flex; flex-direction: column; gap: 1.2rem; }
 
         .menu-sub-item {
             display: flex;
-            gap: 1rem;
-            align-items: flex-start;
-            padding: 0.5rem;
-            border-radius: 8px;
+            gap: 0.8rem;
+            text-decoration: none;
         }
 
-        .menu-sub-item:hover {
-            background: rgba(255,255,255,0.03);
-        }
+        .menu-sub-item svg { width: 20px; height: 20px; color: var(--primary); flex-shrink: 0; }
+        .menu-sub-item h5 { font-size: 0.9rem; font-weight: 600; color: #fff; }
+        .menu-sub-item p { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.1rem; }
 
-        .menu-sub-item svg {
-            width: 24px;
-            height: 24px;
-            color: var(--primary);
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .menu-sub-item h5 {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--text-main);
-            margin-bottom: 0.1rem;
-        }
-
-        .menu-sub-item p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        /* Thẻ tính năng nổi bật bên trong Mega Menu */
-        .menu-featured-card {
-            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
-            border: 1px solid rgba(6, 182, 212, 0.2);
+        .menu-featured {
+            background: linear-gradient(135deg, rgba(79,70,229,0.15), rgba(0,0,0,0));
+            border: 1px solid rgba(79,70,229,0.2);
             border-radius: 12px;
-            padding: 1.5rem;
+            padding: 1.2rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
-        .menu-featured-card h4 {
-            color: #fff;
+        /* --- MAIN WORKSPACE --- */
+        .workspace {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
         }
 
-        .menu-featured-card p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-        }
-
-        /* Nút hành động Header */
-        .nav-actions {
+        /* Thanh điều khiển trên cùng (Tiêu đề + Nút thêm) */
+        .action-bar {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 1.2rem;
-        }
-
-        .btn-text {
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: var(--text-muted);
-        }
-        .btn-text:hover { color: #fff; }
-
-        .btn-premium {
-            background: var(--gradient-accent);
-            color: #fff;
-            padding: 0.7rem 1.5rem;
-            border-radius: 99px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            box-shadow: 0 4px 20px var(--primary-glow);
-        }
-
-        .btn-premium:hover {
-            box-shadow: 0 4px 30px rgba(6, 182, 212, 0.6);
-            transform: translateY(-1px);
-        }
-
-        /* Menu Mobile Toggle Button */
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-        }
-
-        /* --- HERO SECTION & MOCK DASHBOARD --- */
-        .hero {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 10rem 2rem 6rem;
-            text-align: center;
-        }
-
-        .badge-promo {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border);
-            padding: 0.4rem 1rem;
-            border-radius: 99px;
-            font-size: 0.85rem;
             margin-bottom: 2rem;
         }
-        .badge-tag {
-            background: var(--gradient-accent);
-            padding: 0.1rem 0.5rem;
-            border-radius: 99px;
-            font-weight: 700;
-            font-size: 0.75rem;
-        }
 
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            letter-spacing: -2px;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(180deg, #fff 0%, #cbd5e1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .action-bar h1 { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.5px; }
 
-        .hero h1 span {
-            background: linear-gradient(90deg, var(--secondary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            max-width: 700px;
-            margin: 0 auto 3rem;
-            line-height: 1.6;
-        }
-
-        .hero-ctas {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 5rem;
-        }
-
-        /* --- MOCK DASHBOARD ĐỒ HỌA THUẦN CSS --- */
-        .dashboard-mockup {
-            width: 100%;
-            max-width: 1000px;
-            margin: 0 auto;
-            background: var(--bg-surface);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
-            overflow: hidden;
-        }
-
-        .dash-header {
-            background: rgba(0,0,0,0.2);
-            padding: 0.8rem 1.5rem;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .dash-circles {
-            display: flex;
-            gap: 0.4rem;
-        }
-        .dash-circle {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-        }
-        .dash-circle:nth-child(1) { background: #ef4444; }
-        .dash-circle:nth-child(2) { background: #eab308; }
-        .dash-circle:nth-child(3) { background: #22c55e; }
-
-        .dash-search-mock {
-            background: rgba(255,255,255,0.05);
-            width: 300px;
-            height: 24px;
-            border-radius: 6px;
-        }
-
-        .dash-body {
-            padding: 2rem;
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 1.5rem;
-            text-align: left;
-        }
-
-        .dash-sidebar-mock {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-        }
-        .dash-side-item {
-            height: 35px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 8px;
-            width: 100%;
-        }
-        .dash-side-item.active {
-            background: rgba(79, 70, 229, 0.15);
-            border: 1px solid rgba(79, 70, 229, 0.3);
-        }
-
-        .dash-main-mock {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .dash-card {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-        }
-
-        /* Giả lập biểu đồ hình cột bằng CSS */
-        .chart-mock {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            height: 120px;
-            margin-top: 1.5rem;
-            padding: 0 1rem;
-        }
-        .chart-bar {
-            width: 25px;
-            background: var(--primary);
-            border-radius: 4px 4px 0 0;
-            animation: growBar 2s ease infinite alternate;
-        }
-        .chart-bar:nth-child(2) { background: var(--secondary); height: 80%; animation-delay: 0.3s; }
-        .chart-bar:nth-child(3) { background: var(--accent); height: 45%; animation-delay: 0.6s; }
-        .chart-bar:nth-child(4) { background: var(--primary); height: 95%; animation-delay: 0.1s; }
-
-        @keyframes growBar {
-            0% { transform: scaleY(0.8); }
-            100% { transform: scaleY(1.05); }
-        }
-
-        /* --- INTERACTIVE PRICING SECTION --- */
-        .pricing-section {
-            max-width: 1200px;
-            margin: 6rem auto;
-            padding: 0 2rem;
-            text-align: center;
-        }
-
-        .pricing-section h2 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .pricing-section p {
-            color: var(--text-muted);
-            margin-bottom: 3rem;
-        }
-
-        /* Công tắc chuyển đổi bộ lọc giá */
-        .toggle-container {
-            display: inline-flex;
-            align-items: center;
-            background: var(--bg-surface);
-            padding: 0.4rem;
-            border-radius: 99px;
-            border: 1px solid var(--border);
-            margin-bottom: 4rem;
-            gap: 0.5rem;
-        }
-
-        .toggle-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            padding: 0.6rem 1.5rem;
-            border-radius: 99px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .toggle-btn.active {
+        .btn {
             background: var(--primary);
             color: #fff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 10px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
         }
+        .btn:hover { background: var(--primary-hover); transform: translateY(-1px); }
 
-        .save-badge {
-            font-size: 0.75rem;
-            background: rgba(34, 197, 94, 0.15);
-            color: #22c55e;
-            padding: 0.2rem 0.6rem;
-            border-radius: 99px;
-            font-weight: 700;
-        }
-
-        /* Danh sách thẻ giá */
-        .pricing-grid {
+        /* Khối hiển thị thẻ chỉ số thông minh */
+        .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            align-items: stretch;
-        }
-
-        .price-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 3rem 2rem;
-            text-align: left;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .price-card.popular {
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.15);
-        }
-
-        .popular-tag {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: var(--primary);
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 0.3rem 0.8rem;
-            border-radius: 99px;
-        }
-
-        .price-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .price-card .desc {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-        }
-
-        .price-amount {
-            font-size: 3rem;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: baseline;
-        }
-
-        .price-amount span {
-            font-size: 1rem;
-            color: var(--text-muted);
-            font-weight: 400;
-        }
-
-        .features-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+            gap: 1.5rem;
             margin-bottom: 2.5rem;
         }
 
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 0.95rem;
-        }
-
-        .feature-item svg {
-            color: var(--secondary);
-            width: 18px;
-            height: 18px;
-            flex-shrink: 0;
-        }
-
-        .btn-pricing {
-            display: block;
-            text-align: center;
-            background: rgba(255,255,255,0.05);
+        .stat-card {
+            background: var(--bg-card);
             border: 1px solid var(--border);
-            padding: 0.8rem;
-            border-radius: 10px;
-            font-weight: 600;
-        }
-
-        .price-card.popular .btn-pricing {
-            background: var(--primary);
-            border: none;
-        }
-        .price-card:hover {
-            transform: translateY(-5px);
-        }
-
-        /* --- FAQ ACCORDION SECTION --- */
-        .faq-section {
-            max-width: 800px;
-            margin: 6rem auto;
-            padding: 0 2rem;
-        }
-
-        .faq-section h2 {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            font-weight: 800;
-        }
-
-        .faq-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .faq-item {
-            background: var(--bg-surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        .faq-trigger {
-            width: 100%;
-            background: none;
-            border: none;
+            border-radius: 14px;
             padding: 1.5rem;
-            text-align: left;
-            color: #fff;
-            font-size: 1.1rem;
-            font-weight: 600;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            cursor: pointer;
         }
 
-        .faq-icon {
+        .stat-info p { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
+        .stat-info h3 { font-size: 2rem; font-weight: 700; margin-top: 0.25rem; }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.02);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+
+        /* --- BẢNG DỮ LIỆU ĐỘNG CHUẨN ISO --- */
+        .table-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: rgba(0,0,0,0.15);
+            padding: 1rem 1.5rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        td {
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            color: #cbd5e1;
+        }
+
+        tr { transition: background 0.2s; }
+        tr:hover { background: rgba(255,255,255,0.01); }
+
+        /* Hàng dữ liệu khi bị xóa sẽ chạy animation này */
+        .row-fade-out {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.3s ease;
+        }
+
+        /* Trạng thái Badges */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+        .badge-active { background: rgba(16,185,129,0.1); color: var(--success); }
+        .badge-active::before { background: var(--success); }
+        
+        .badge-paused { background: rgba(245,158,11,0.1); color: var(--warning); }
+        .badge-paused::before { background: var(--warning); }
+
+        /* Nút hành động xóa hàng */
+        .btn-delete {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .btn-delete:hover { color: var(--danger); background: rgba(239,68,68,0.1); }
+
+        /* --- MODAL DIALOG (CỬA SỔ THÊM HÀNG) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(4, 6, 10, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+
+        .modal-box {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            width: 100%;
+            max-width: 480px;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            transform: scale(0.95);
             transition: transform 0.3s ease;
         }
+        .modal-overlay.active .modal-box { transform: scale(1); }
 
-        .faq-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.3s ease;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            padding: 0 1.5rem;
-        }
-
-        /* Trạng thái Active khi click FAQ (Xử lý bằng JS bên dưới) */
-        .faq-item.active .faq-content {
-            padding-bottom: 1.5rem;
-        }
-        .faq-item.active .faq-icon {
-            transform: rotate(180deg);
-        }
-
-        /* --- CHÂN TRANG (FOOTER) --- */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 4rem 2rem;
-            background: #04060d;
-        }
-
-        .footer-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr repeat(3, 1fr);
-            gap: 4rem;
-        }
-
-        .footer-brand p {
-            color: var(--text-muted);
-            margin-top: 1rem;
-            font-size: 0.95rem;
-            max-width: 250px;
-        }
-
-        .footer-col h4 {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #fff;
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 1.5rem;
         }
+        .modal-header h3 { font-size: 1.3rem; font-weight: 700; }
+        .modal-close { background: none; border: none; color: var(--text-muted); cursor: pointer; }
 
-        .footer-col ul {
+        .form-group { margin-bottom: 1.25rem; }
+        .form-group label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 500; }
+        
+        .form-control {
+            width: 100%;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border 0.2s;
+        }
+        .form-control:focus { border-color: var(--primary-hover); }
+
+        .modal-footer {
             display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-        }
-
-        .footer-col a {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-        .footer-col a:hover { color: var(--secondary); }
-
-        /* --- RESPONSIVE MEDIA QUERIES (CHO ĐIỆN THOẠI & TABLET) --- */
-        @media (max-width: 1024px) {
-            .pricing-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
-            .megamenu { width: 90vw; grid-template-columns: 1fr; max-height: 400px; overflow-y: auto; }
-        }
-
-        @media (max-width: 768px) {
-            .menu-toggle { display: block; }
-            .nav-links, .nav-actions { display: none; } /* Trên mobile thực tế sẽ cần toggle class hệ thống */
-            .hero h1 { font-size: 2.5rem; }
-            .dash-main-mock { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            justify-content: flex-end;
+            gap: 0.75rem;
+            margin-top: 2rem;
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-glows">
-        <div class="glow-1"></div>
-        <div class="glow-2"></div>
-    </div>
-
     <header>
         <div class="navbar">
-            <a href="#" class="logo">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                NexAI
-            </a>
+            <div class="logo">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                CoreEngine
+            </div>
             
             <nav class="nav-links">
                 <div class="nav-item">
-                    <a href="#" class="nav-link">
-                        Sản phẩm 
+                    <span class="nav-link">
+                        Hệ sinh thái AI 
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg>
-                    </a>
+                    </span>
                     <div class="megamenu">
                         <div class="menu-col">
-                            <h4>Công cụ AI chính</h4>
-                            <div class="menu-list">
-                                <a href="#" class="menu-sub-item">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                                    <div>
-                                        <h5>Tự Động Hóa Web</h5>
-                                        <p>Xây dựng mã nguồn và giao diện tự động hóa toàn bộ bằng AI.</p>
-                                    </div>
-                                </a>
-                                <a href="#" class="menu-sub-item">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-                                    <div>
-                                        <h5>AI Copywriting</h5>
-                                        <p>Sáng tạo nội dung tiếp thị chuẩn SEO vượt trội.</p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="menu-col">
-                            <h4>Hệ sinh thái</h4>
+                            <h4>Xử lý Core</h4>
                             <div class="menu-list">
                                 <a href="#" class="menu-sub-item">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
                                     <div>
-                                        <h5>Phân tích chuyên sâu</h5>
-                                        <p>Theo dõi dữ liệu chuyển đổi người dùng thời gian thực.</p>
+                                        <h5>Neural Network</h5>
+                                        <p>Mô hình mạng nơ-ron tích hợp đa tầng dữ liệu chuyên sâu.</p>
                                     </div>
                                 </a>
                                 <a href="#" class="menu-sub-item">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                                     <div>
-                                        <h5>Bảo mật tối tân</h5>
-                                        <p>Mã hóa dữ liệu đầu ra và đầu vào an toàn tuyệt đối.</p>
+                                        <h5>An Ninh ISO</h5>
+                                        <p>Mã hóa đầu cuối đạt tiêu chuẩn bảo mật dữ liệu đám mây.</p>
                                     </div>
                                 </a>
                             </div>
                         </div>
-                        <div class="menu-featured-card">
-                            <div>
-                                <h4>Bản phát hành V2.5</h4>
-                                <p>Trải nghiệm tốc độ xử lý nhanh gấp 4 lần phiên bản cũ.</p>
+                        <div class="menu-col">
+                            <h4>Tự động hóa</h4>
+                            <div class="menu-list">
+                                <a href="#" class="menu-sub-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                                    <div>
+                                        <h5>Cấu trúc Grid tự động</h5>
+                                        <p>Tạo các hàng dữ liệu và bảng tương tác chỉ với 1 click.</p>
+                                    </div>
+                                </a>
                             </div>
-                            <a href="#" style="color: var(--secondary); font-size: 0.85rem; font-weight: 700;">Xem nhật ký cập nhật →</a>
+                        </div>
+                        <div class="menu-featured">
+                            <div>
+                                <span style="font-size:0.7rem; background:var(--primary); padding:2px 6px; border-radius:4px; font-weight:700;">PRO</span>
+                                <h4 style="color:#fff; margin-top:0.5rem; text-transform:none;">Hệ thống V3 Alpha</h4>
+                                <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.25rem;">Trải nghiệm bảng kiểm soát phản hồi thời gian thực siêu tốc.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="nav-item"><a href="#" class="nav-link">Giải pháp</a></div>
-                <div class="nav-item"><a href="#pricing" class="nav-link">Bảng giá</a></div>
-                <div class="nav-item"><a href="#" class="nav-link">Tài nguyên</a></div>
+                <div class="nav-item"><span class="nav-link">Cấu hình</span></div>
+                <div class="nav-item"><span class="nav-link">Tài liệu API</span></div>
             </nav>
 
-            <div class="nav-actions">
-                <a href="#" class="btn-text">Đăng nhập</a>
-                <a href="#" class="btn-premium">Bắt đầu miễn phí</a>
-            </div>
-
-            <button class="menu-toggle">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></button>
+            <div style="width: 120px; text-align: right; font-size: 0.9rem; color: var(--success); font-weight: 600;">● Live System</div>
         </div>
     </header>
 
-    <main>
-        <section class="hero">
-            <div class="badge-promo">
-                <span class="badge-tag">MỚI</span>
-                <span style="color: var(--text-muted)">Tích hợp tác vụ tự động hóa Megamenu</span>
+    <main class="workspace">
+        
+        <div class="action-bar">
+            <div>
+                <h1>Trình quản lý tác vụ AI</h1>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">Thêm, quản lý và giám sát các luồng xử lý tự động trong hệ thống.</p>
             </div>
-            <h1>Phát triển sản phẩm công nghệ<br>Thao tác tối ưu với <span>Sức mạnh AI</span></h1>
-            <p>Giải pháp front-end tự động cấu trúc layout, điều phối thành phần giao diện chất lượng cao giúp tiết kiệm chi phí vận hành.</p>
-            
-            <div class="hero-ctas">
-                <a href="#" class="btn-premium" style="padding: 1rem 2.5rem; font-size: 1rem;">Khởi tạo dự án</a>
-                <a href="#" class="btn-pricing" style="padding: 1rem 2.5rem; font-size: 1rem; border-radius: 99px;">Liên hệ tư vấn</a>
-            </div>
+            <button class="btn" onclick="openModal()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="21" y2="12"/></svg>
+                Thêm hàng mới
+            </button>
+        </div>
 
-            <div class="dashboard-mockup">
-                <div class="dash-header">
-                    <div class="dash-circles">
-                        <div class="dash-circle"></div>
-                        <div class="dash-circle"></div>
-                        <div class="dash-circle"></div>
-                    </div>
-                    <div class="dash-search-mock"></div>
-                    <div style="width: 20px;"></div>
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-info">
+                    <p>Tổng số tác vụ</p>
+                    <h3 id="stat-total">0</h3>
                 </div>
-                <div class="dash-body">
-                    <div class="dash-sidebar-mock">
-                        <div class="dash-side-item active"></div>
-                        <div class="dash-side-item"></div>
-                        <div class="dash-side-item"></div>
-                        <div class="dash-side-item"></div>
-                    </div>
-                    <div class="dash-main-mock">
-                        <div class="dash-card">
-                            <span style="font-size: 0.8rem; color: var(--text-muted);">Hiệu năng hệ thống</span>
-                            <h4 style="font-size: 1.8rem; margin-top: 0.5rem; color: var(--secondary)">99.4%</h4>
-                            <div class="chart-mock">
-                                <div class="chart-bar"></div>
-                                <div class="chart-bar"></div>
-                                <div class="chart-bar"></div>
-                                <div class="chart-bar"></div>
-                            </div>
-                        </div>
-                        <div class="dash-card" style="display:flex; flex-direction:column; justify-content:space-between;">
-                            <div>
-                                <span style="font-size: 0.8rem; color: var(--text-muted);">Băng thông dữ liệu</span>
-                                <h4 style="font-size: 1.8rem; margin-top: 0.5rem; color: #fff;">3.4 TB</h4>
-                            </div>
-                            <div style="height: 8px; background: rgba(255,255,255,0.05); border-radius: 99px; overflow:hidden;">
-                                <div style="width: 75%; height: 100%; background: var(--gradient-accent);"></div>
-                            </div>
-                            <span style="font-size: 0.75rem; color: var(--text-muted)">Hoạt động tối ưu mượt mà</span>
-                        </div>
-                    </div>
+                <div class="stat-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-info">
+                    <p>Đang hoạt động</p>
+                    <h3 id="stat-active" style="color: var(--success);">0</h3>
+                </div>
+                <div class="stat-icon" style="color: var(--success);">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-info">
+                    <p>Tốc độ xử lý trung bình</p>
+                    <h3>240 ms</h3>
+                </div>
+                <div class="stat-icon" style="color: #60a5fa;">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
                 </div>
             </div>
         </section>
 
-        <section class="pricing-section" id="pricing">
-            <h2>Bảng giá dịch vụ linh hoạt</h2>
-            <p>Chọn gói giải pháp tối ưu nhất cho kế hoạch mở rộng quy mô của bạn</p>
-            
-            <div class="toggle-container">
-                <button class="toggle-btn active" id="btn-monthly" onclick="setBilling('monthly')">Thanh toán tháng</button>
-                <button class="toggle-btn" id="btn-yearly" onclick="setBilling('yearly')">
-                    Thanh toán năm <span class="save-badge">-20%</span>
-                </button>
-            </div>
-
-            <div class="pricing-grid">
-                <div class="price-card">
-                    <h3>Cơ bản</h3>
-                    <p class="desc">Dành cho cá nhân trải nghiệm thử thách lập trình công nghệ.</p>
-                    <div class="price-amount" id="price-starter">0k <span>/ tháng</span></div>
-                    <ul class="features-list">
-                        <li class="feature-item">
-                            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                            Tích hợp Mega Menu tĩnh
-                        </li>
-                        <li class="feature-item">
-                            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                            Băng thông cơ bản 5GB
-                        </li>
-                    </ul>
-                    <a href="#" class="btn-pricing">Trải nghiệm ngay</a>
-                </div>
-
-                <div class="price-card popular">
-                    <div class="popular-tag">Phổ biến nhất</div>
-                    <h3>Chuyên nghiệp</h3>
-                    <p class="desc">Dành cho các đội ngũ phát triển và tối ưu UI/UX nâng cao.</p>
-                    <div class="price-amount" id="price-pro">490k <span>/ tháng</span></div>
-                    <ul class="features-list">
-                        <li class="feature-item">
-                            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                            Mega Menu tương tác cao cấp
-                        </li>
-                        <li class="feature-item">
-                            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                            Không giới hạn băng thông dữ liệu
-                        </li>
-                        <li class="feature-item">
-                            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                            Hỗ trợ kỹ thuật 24/7
-                        </li>
-                    </ul>
-                    <a href="#" class="btn-pricing">Nâng cấp Pro</a>
-                </div>
-
-                <div class="price-card">
-                    <h3>Doanh nghiệp</h3>
-                    <p class="desc">Hệ thống mở rộng quy mô lớn, bảo mật lớp doanh nghiệp.</p>
-                    <div class="price-amount" id="price-enterprise">990k <span>/ tháng</span></div>
-                    <ul class="features-list">
-                        <li class="feature-item">
-                            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                            Toàn bộ quyền năng bản V2.5
-                        </li>
-                        <li class="feature-item">
-                            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                            Mã hóa cơ sở dữ liệu riêng biệt
-                        </li>
-                    </ul>
-                    <a href="#" class="btn-pricing">Liên hệ chúng tôi</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="faq-section">
-            <h2>Câu hỏi thường gặp</h2>
-            <div class="faq-container">
-                <div class="faq-item">
-                    <button class="faq-trigger" onclick="toggleFaq(this)">
-                        <span>Làm cách nào để cấu hình Mega Menu động?</span>
-                        <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-                    </button>
-                    <div class="faq-content">
-                        <p>Bạn chỉ cần giữ nguyên cấu trúc HTML lồng phân cấp trong nhóm class `nav-item` và `megamenu`. CSS của hệ thống đã tự động tính toán vị trí hiển thị tối ưu nhất cho bạn.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-trigger" onclick="toggleFaq(this)">
-                        <span>Hệ thống có cần tải thêm hình ảnh từ ngoài không?</span>
-                        <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-                    </button>
-                    <div class="faq-content">
-                        <p>Không, toàn bộ trang web sử dụng công nghệ vẽ đồ họa vector (Inline SVG) và hiệu ứng chuyển màu của CSS (Gradients). Đảm bảo tốc độ tải trang đạt điểm tối đa trên mọi công cụ đo lường.</p>
-                    </div>
-                </div>
-            </div>
+        <section class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã định danh (ID)</th>
+                        <th>Tên tác vụ xử lý</th>
+                        <th>Thời gian tạo</th>
+                        <th>Trạng thái hệ thống</th>
+                        <th style="text-align: right;">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody id="data-table-body">
+                    </tbody>
+            </table>
         </section>
     </main>
 
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <a href="#" class="logo" style="font-size:1.4rem;">NexAI</a>
-                <p>Nền tảng kiến tạo tương lai giao diện web chuyên nghiệp bằng trí tuệ nhân tạo.</p>
+    <div class="modal-overlay" id="add-modal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>Khởi tạo tác vụ mới</h3>
+                <button class="modal-close" onclick="closeModal()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
             </div>
-            <div class="footer-col">
-                <h4>Sản phẩm</h4>
-                <ul>
-                    <li><a href="#">Tính năng</a></li>
-                    <li><a href="#">Bảng giá</a></li>
-                    <li><a href="#">Bảo mật</a></li>
-                </ul>
+            
+            <div class="form-group">
+                <label for="task-name">Tên tác vụ AI</label>
+                <input type="text" id="task-name" class="form-control" placeholder="Ví dụ: Tối ưu hóa API Megamenu...">
             </div>
-            <div class="footer-col">
-                <h4>Công ty</h4>
-                <ul>
-                    <li><a href="#">Giới thiệu</a></li>
-                    <li><a href="#">Tuyển dụng</a></li>
-                    <li><a href="#">Blog</a></li>
-                </ul>
+            
+            <div class="form-group">
+                <label for="task-status">Trạng thái khởi chạy</label>
+                <select id="task-status" class="form-control">
+                    <option value="active">Đang hoạt động (Active)</option>
+                    <option value="paused">Tạm dừng (Paused)</option>
+                </select>
             </div>
-            <div class="footer-col">
-                <h4>Pháp lý</h4>
-                <ul>
-                    <li><a href="#">Điều khoản</a></li>
-                    <li><a href="#">Bảo mật</a></li>
-                </ul>
+
+            <div class="modal-footer">
+                <button class="btn" style="background:none; border:1px solid var(--border); color:var(--text-main);" onclick="closeModal()">Hủy bỏ</button>
+                <button class="btn" onclick="submitNewRow()">Xác nhận thêm</button>
             </div>
         </div>
-    </footer>
+    </div>
 
     <script>
-        // --- CHỨC NĂNG 1: CHUYỂN ĐỔI GIÁ THEO THÁNG / NĂM ---
-        function setBilling(plan) {
-            const btnMonthly = document.getElementById('btn-monthly');
-            const btnYearly = document.getElementById('btn-yearly');
-            
-            const pricePro = document.getElementById('price-pro');
-            const priceEnterprise = document.getElementById('price-enterprise');
+        // Cơ sở dữ liệu mẫu ban đầu (Array of Objects)
+        let dataset = [
+            { id: "NX-8821", name: "Đồng bộ hóa dữ liệu Front-end ISO", date: "2026-06-20 14:22", status: "active" },
+            { id: "NX-4309", name: "Cấu hình thuật toán ma trận Lưới Tự Động", date: "2026-06-20 15:05", status: "paused" },
+            { id: "NX-1192", name: "Xử lý phản hồi luồng nén Megamenu V3", date: "2026-06-20 16:10", status: "active" }
+        ];
 
-            if (plan === 'yearly') {
-                btnMonthly.classList.remove('active');
-                btnYearly.classList.add('active');
-                
-                // Cập nhật giá trị đã giảm 20% khi mua theo năm
-                pricePro.innerHTML = "390k <span>/ tháng (Trả năm)</span>";
-                priceEnterprise.innerHTML = "790k <span>/ tháng (Trả năm)</span>";
-            } else {
-                btnYearly.classList.remove('active');
-                btnMonthly.classList.add('active');
-                
-                // Trả về giá mặc định theo tháng
-                pricePro.innerHTML = "490k <span>/ tháng</span>";
-                priceEnterprise.innerHTML = "990k <span>/ tháng</span>";
-            }
-        }
+        // Hàm Render (vẽ) lại bảng dữ liệu và tính toán thống kê
+        function renderTable() {
+            const tbody = document.getElementById('data-table-body');
+            tbody.innerHTML = ''; // Xóa sạch bảng cũ để nạp mới
 
-        // --- CHỨC NĂNG 2: HIỆU ỨNG ACCORDION CHO KHỐI FAQ ---
-        function toggleFaq(button) {
-            const faqItem = button.parentElement;
-            const content = button.nextElementSibling;
-            
-            // Đóng tất cả các FAQ khác đang mở (Tạo hiệu ứng chuẩn)
-            document.querySelectorAll('.faq-item').forEach(item => {
-                if (item !== faqItem) {
-                    item.classList.remove('active');
-                    item.querySelector('.faq-content').style.maxHeight = null;
-                }
+            let totalTasks = dataset.length;
+            let activeTasks = 0;
+
+            dataset.forEach((item, index) => {
+                if (item.status === 'active') activeTasks++;
+
+                // Tạo phần tử hàng (tr)
+                const tr = document.createElement('tr');
+                tr.setAttribute('id', `row-${item.id}`);
+
+                // Thiết lập cấu trúc cột trong hàng
+                tr.innerHTML = `
+                    <td style="font-family: monospace; font-weight: 600; color: #60a5fa;">${item.id}</td>
+                    <td style="font-weight: 500; color: #fff;">${item.name}</td>
+                    <td style="font-size: 0.85rem; color: var(--text-muted);">${item.date}</td>
+                    <td>
+                        <span class="badge ${item.status === 'active' ? 'badge-active' : 'badge-paused'}">
+                            ${item.status === 'active' ? 'Hoạt động' : 'Tạm dừng'}
+                        </span>
+                    </td>
+                    <td style="text-align: right;">
+                        <button class="btn-delete" onclick="deleteRow('${item.id}')" title="Xóa hàng này">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
             });
 
-            // Chuyển đổi trạng thái FAQ hiện tại
-            faqItem.classList.toggle('active');
-            if (faqItem.classList.contains('active')) {
-                content.style.maxHeight = content.scrollHeight + "px";
-            } else {
-                content.style.maxHeight = null;
+            // Cập nhật số liệu hiển thị lên các thẻ thống kê ở trên đầu
+            document.getElementById('stat-total').innerText = totalTasks;
+            document.getElementById('stat-active').innerText = activeTasks;
+        }
+
+        // Các hàm điều khiển Đóng/Mở Modal nhập liệu
+        function openModal() {
+            document.getElementById('add-modal').classList.add('active');
+            document.getElementById('task-name').focus();
+        }
+
+        function closeModal() {
+            document.getElementById('add-modal').classList.remove('active');
+            document.getElementById('task-name').value = ''; // Reset input
+        }
+
+        // Hàm xử lý khi bấm nút "Xác nhận thêm" dữ liệu từ Form
+        function submitNewRow() {
+            const nameInput = document.getElementById('task-name').value.trim();
+            const statusInput = document.getElementById('task-status').value;
+
+            if (!nameInput) {
+                alert("Vui lòng điền tên tác vụ xử lý!");
+                return;
+            }
+
+            // Tạo mã ID ngẫu nhiên chuẩn Tech
+            const randomID = "NX-" + Math.floor(1000 + Math.random() * 9000);
+            
+            // Lấy thời gian hiện tại
+            const now = new Date();
+            const timeString = now.getFullYear() + '-' + 
+                               String(now.getMonth() + 1).padStart(2, '0') + '-' + 
+                               String(now.getDate()).padStart(2, '0') + ' ' + 
+                               String(now.getHours()).padStart(2, '0') + ':' + 
+                               String(now.getMinutes()).padStart(2, '0');
+
+            // Đẩy phần tử mới vào mảng dữ liệu gốc
+            dataset.unshift({
+                id: randomID,
+                name: nameInput,
+                date: timeString,
+                status: statusInput
+            });
+
+            // Vẽ lại bảng dữ liệu ngay lập tức và đóng modal
+            renderTable();
+            closeModal();
+        }
+
+        // Hàm xóa hàng kèm hiệu ứng chuyển động mượt
+        function deleteRow(id) {
+            const targetRow = document.getElementById(`row-${id}`);
+            if (targetRow) {
+                // Thêm class tạo hiệu ứng trượt mờ dần (Fade-out)
+                targetRow.classList.add('row-fade-out');
+                
+                // Đợi hiệu ứng CSS chạy xong (300ms) rồi tiến hành xóa khỏi cơ sở dữ liệu và render lại
+                setTimeout(() => {
+                    dataset = dataset.filter(item => item.id !== id);
+                    renderTable();
+                }, 300);
             }
         }
+
+        // Tự động kích hoạt nạp bảng lần đầu tiên khi trang web tải xong
+        window.onload = renderTable;
     </script>
 </body>
 </html>
