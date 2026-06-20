@@ -3,208 +3,1024 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Web Tối Ưu Chi Phí</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>NexAI - Nền Tảng AI Thế Hệ Mới</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
+        /* --- HỆ THỐNG BIẾN CHỦ ĐỀ VÀ MÀU SẮC (PREMIUM TECH) --- */
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: #1e293b;
-            --accent-color: #3b82f6;
-            --accent-hover: #2563eb;
+            --bg-deep: #060913;
+            --bg-surface: #0f1524;
+            --bg-surface-hover: #172034;
+            --primary: #4f46e5;
+            --primary-glow: rgba(79, 70, 229, 0.4);
+            --secondary: #06b6d4;
+            --accent: #d946ef;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --yellow-glow: #eab308;
+            --border: rgba(255, 255, 255, 0.08);
+            --glass: rgba(15, 21, 36, 0.7);
+            --gradient-text: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+            --gradient-accent: linear-gradient(90deg, #4f46e5, #06b6d4);
         }
 
+        /* --- THIẾT LẬP CƠ BẢN --- */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
+            background-color: var(--bg-deep);
             color: var(--text-main);
-            line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* Header / Thanh điều hướng */
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- HIỆU ỨNG NỀN ĐỘNG NÂNG CAO --- */
+        .bg-glows {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .glow-1 {
+            position: absolute;
+            top: -10%;
+            left: 20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+            filter: blur(80px);
+        }
+        .glow-2 {
+            position: absolute;
+            top: 40%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.25) 0%, transparent 70%);
+            filter: blur(80px);
+        }
+
+        /* --- HEADER & NAVIGATION --- */
         header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .navbar {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 5%;
-            border-bottom: 1px solid #1e293b;
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(90deg, #fff, var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* --- CẤU TRÚC MAIN NAV & MEGAMENU --- */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .nav-link:hover, .nav-item:hover .nav-link {
+            color: var(--text-main);
+        }
+
+        /* Thiết kế khối Mega Menu */
+        .megamenu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            width: 800px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 2fr 2fr 1.5fr;
+            gap: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .nav-item:hover .megamenu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(10px);
+        }
+
+        .menu-col h4 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .menu-sub-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .menu-sub-item:hover {
+            background: rgba(255,255,255,0.03);
+        }
+
+        .menu-sub-item svg {
+            width: 24px;
+            height: 24px;
+            color: var(--primary);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .menu-sub-item h5 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.1rem;
+        }
+
+        .menu-sub-item p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Thẻ tính năng nổi bật bên trong Mega Menu */
+        .menu-featured-card {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-featured-card h4 {
+            color: #fff;
+        }
+
+        .menu-featured-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Nút hành động Header */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .btn-text {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+        .btn-text:hover { color: #fff; }
+
+        .btn-premium {
+            background: var(--gradient-accent);
+            color: #fff;
+            padding: 0.7rem 1.5rem;
+            border-radius: 99px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 20px var(--primary-glow);
+        }
+
+        .btn-premium:hover {
+            box-shadow: 0 4px 30px rgba(6, 182, 212, 0.6);
+            transform: translateY(-1px);
+        }
+
+        /* Menu Mobile Toggle Button */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* --- HERO SECTION & MOCK DASHBOARD --- */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10rem 2rem 6rem;
+            text-align: center;
+        }
+
+        .badge-promo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            padding: 0.4rem 1rem;
+            border-radius: 99px;
+            font-size: 0.85rem;
+            margin-bottom: 2rem;
+        }
+        .badge-tag {
+            background: var(--gradient-accent);
+            padding: 0.1rem 0.5rem;
+            border-radius: 99px;
             font-weight: 700;
-            letter-spacing: -0.5px;
-            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            font-size: 0.75rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(180deg, #fff 0%, #cbd5e1 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* Container chính */
-        .container {
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+        .hero h1 span {
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+
+        .hero-ctas {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 5rem;
+        }
+
+        /* --- MOCK DASHBOARD ĐỒ HỌA THUẦN CSS --- */
+        .dashboard-mockup {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--bg-surface);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+            overflow: hidden;
+        }
+
+        .dash-header {
+            background: rgba(0,0,0,0.2);
+            padding: 0.8rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
             align-items: center;
         }
 
-        /* Khối nội dung bên trái */
-        .content-section h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-        }
-
-        .content-section h1 span {
-            color: var(--yellow-glow);
-            position: relative;
-        }
-
-        .content-section p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            max-width: 500px;
-        }
-
-        .cta-buttons {
+        .dash-circles {
             display: flex;
-            gap: 1rem;
+            gap: 0.4rem;
+        }
+        .dash-circle {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+        }
+        .dash-circle:nth-child(1) { background: #ef4444; }
+        .dash-circle:nth-child(2) { background: #eab308; }
+        .dash-circle:nth-child(3) { background: #22c55e; }
+
+        .dash-search-mock {
+            background: rgba(255,255,255,0.05);
+            width: 300px;
+            height: 24px;
+            border-radius: 6px;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 2rem;
+        .dash-body {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 1.5rem;
+            text-align: left;
+        }
+
+        .dash-sidebar-mock {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .dash-side-item {
+            height: 35px;
+            background: rgba(255,255,255,0.03);
             border-radius: 8px;
+            width: 100%;
+        }
+        .dash-side-item.active {
+            background: rgba(79, 70, 229, 0.15);
+            border: 1px solid rgba(79, 70, 229, 0.3);
+        }
+
+        .dash-main-mock {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .dash-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        /* Giả lập biểu đồ hình cột bằng CSS */
+        .chart-mock {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 120px;
+            margin-top: 1.5rem;
+            padding: 0 1rem;
+        }
+        .chart-bar {
+            width: 25px;
+            background: var(--primary);
+            border-radius: 4px 4px 0 0;
+            animation: growBar 2s ease infinite alternate;
+        }
+        .chart-bar:nth-child(2) { background: var(--secondary); height: 80%; animation-delay: 0.3s; }
+        .chart-bar:nth-child(3) { background: var(--accent); height: 45%; animation-delay: 0.6s; }
+        .chart-bar:nth-child(4) { background: var(--primary); height: 95%; animation-delay: 0.1s; }
+
+        @keyframes growBar {
+            0% { transform: scaleY(0.8); }
+            100% { transform: scaleY(1.05); }
+        }
+
+        /* --- INTERACTIVE PRICING SECTION --- */
+        .pricing-section {
+            max-width: 1200px;
+            margin: 6rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .pricing-section h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-section p {
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+        }
+
+        /* Công tắc chuyển đổi bộ lọc giá */
+        .toggle-container {
+            display: inline-flex;
+            align-items: center;
+            background: var(--bg-surface);
+            padding: 0.4rem;
+            border-radius: 99px;
+            border: 1px solid var(--border);
+            margin-bottom: 4rem;
+            gap: 0.5rem;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.6rem 1.5rem;
+            border-radius: 99px;
             font-weight: 600;
-            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-btn.active {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .save-badge {
+            font-size: 0.75rem;
+            background: rgba(34, 197, 94, 0.15);
+            color: #22c55e;
+            padding: 0.2rem 0.6rem;
+            border-radius: 99px;
+            font-weight: 700;
+        }
+
+        /* Danh sách thẻ giá */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            align-items: stretch;
+        }
+
+        .price-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: left;
+            position: relative;
             transition: all 0.3s ease;
         }
 
-        .btn-primary {
-            background-color: var(--accent-color);
-            color: white;
+        .price-card.popular {
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.15);
         }
 
-        .btn-primary:hover {
-            background-color: var(--accent-hover);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            border: 1px solid var(--text-muted);
-            color: var(--text-main);
-        }
-
-        .btn-secondary:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        /* Khối hiển thị hình ảnh bên phải (Giả lập khung Short/Reels) */
-        .image-section {
-            display: flex;
-            justify-content: center;
-            position: relative;
-        }
-
-        .image-wrapper {
-            position: relative;
-            max-width: 360px;
-            width: 100%;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 
-                        0 0 40px rgba(59, 130, 246, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.5s ease;
-        }
-
-        .image-wrapper:hover {
-            transform: scale(1.02) rotate(1deg);
-        }
-
-        .image-wrapper img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* Hiệu ứng trang trí phía sau ảnh */
-        .image-section::before {
-            content: '';
+        .popular-tag {
             position: absolute;
-            width: 300px;
-            height: 300px;
-            background: var(--accent-color);
-            filter: blur(120px);
-            opacity: 0.3;
-            top: 10%;
-            right: 10%;
-            z-index: -1;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--primary);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.3rem 0.8rem;
+            border-radius: 99px;
         }
 
-        /* Responsive cho thiết bị di động */
+        .price-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-card .desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .price-amount {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: baseline;
+        }
+
+        .price-amount span {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .feature-item svg {
+            color: var(--secondary);
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .btn-pricing {
+            display: block;
+            text-align: center;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            padding: 0.8rem;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .price-card.popular .btn-pricing {
+            background: var(--primary);
+            border: none;
+        }
+        .price-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* --- FAQ ACCORDION SECTION --- */
+        .faq-section {
+            max-width: 800px;
+            margin: 6rem auto;
+            padding: 0 2rem;
+        }
+
+        .faq-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 800;
+        }
+
+        .faq-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .faq-item {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .faq-trigger {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 1.5rem;
+            text-align: left;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            padding: 0 1.5rem;
+        }
+
+        /* Trạng thái Active khi click FAQ (Xử lý bằng JS bên dưới) */
+        .faq-item.active .faq-content {
+            padding-bottom: 1.5rem;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        /* --- CHÂN TRANG (FOOTER) --- */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 4rem 2rem;
+            background: #04060d;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 4rem;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            max-width: 250px;
+        }
+
+        .footer-col h4 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #fff;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-col ul {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .footer-col a {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .footer-col a:hover { color: var(--secondary); }
+
+        /* --- RESPONSIVE MEDIA QUERIES (CHO ĐIỆN THOẠI & TABLET) --- */
+        @media (max-width: 1024px) {
+            .pricing-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
+            .megamenu { width: 90vw; grid-template-columns: 1fr; max-height: 400px; overflow-y: auto; }
+        }
+
         @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-                text-align: center;
-                margin: 2rem auto;
-                gap: 3rem;
-            }
-
-            .content-section h1 {
-                font-size: 2.2rem;
-            }
-
-            .content-section p {
-                margin: 0 auto 2rem auto;
-            }
-
-            .cta-buttons {
-                justify-content: center;
-            }
-
-            .image-wrapper {
-                max-width: 300px;
-            }
+            .menu-toggle { display: block; }
+            .nav-links, .nav-actions { display: none; } /* Trên mobile thực tế sẽ cần toggle class hệ thống */
+            .hero h1 { font-size: 2.5rem; }
+            .dash-main-mock { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
         }
     </style>
 </head>
 <body>
 
+    <div class="bg-glows">
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+    </div>
+
     <header>
-        <div class="logo">AI.WebSpace</div>
+        <div class="navbar">
+            <a href="#" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                NexAI
+            </a>
+            
+            <nav class="nav-links">
+                <div class="nav-item">
+                    <a href="#" class="nav-link">
+                        Sản phẩm 
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg>
+                    </a>
+                    <div class="megamenu">
+                        <div class="menu-col">
+                            <h4>Công cụ AI chính</h4>
+                            <div class="menu-list">
+                                <a href="#" class="menu-sub-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                                    <div>
+                                        <h5>Tự Động Hóa Web</h5>
+                                        <p>Xây dựng mã nguồn và giao diện tự động hóa toàn bộ bằng AI.</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="menu-sub-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                                    <div>
+                                        <h5>AI Copywriting</h5>
+                                        <p>Sáng tạo nội dung tiếp thị chuẩn SEO vượt trội.</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="menu-col">
+                            <h4>Hệ sinh thái</h4>
+                            <div class="menu-list">
+                                <a href="#" class="menu-sub-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                                    <div>
+                                        <h5>Phân tích chuyên sâu</h5>
+                                        <p>Theo dõi dữ liệu chuyển đổi người dùng thời gian thực.</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="menu-sub-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                    <div>
+                                        <h5>Bảo mật tối tân</h5>
+                                        <p>Mã hóa dữ liệu đầu ra và đầu vào an toàn tuyệt đối.</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="menu-featured-card">
+                            <div>
+                                <h4>Bản phát hành V2.5</h4>
+                                <p>Trải nghiệm tốc độ xử lý nhanh gấp 4 lần phiên bản cũ.</p>
+                            </div>
+                            <a href="#" style="color: var(--secondary); font-size: 0.85rem; font-weight: 700;">Xem nhật ký cập nhật →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-item"><a href="#" class="nav-link">Giải pháp</a></div>
+                <div class="nav-item"><a href="#pricing" class="nav-link">Bảng giá</a></div>
+                <div class="nav-item"><a href="#" class="nav-link">Tài nguyên</a></div>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="#" class="btn-text">Đăng nhập</a>
+                <a href="#" class="btn-premium">Bắt đầu miễn phí</a>
+            </div>
+
+            <button class="menu-toggle">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></button>
+        </div>
     </header>
 
-    <main class="container">
-        <section class="content-section">
-            <h1>Có AI Web có rẻ hơn không? <br>Câu trả lời là <span>CÓ!</span></h1>
-            <p>Tối ưu hóa quy trình vận hành và xây dựng sản phẩm công nghệ với chi phí tiết kiệm nhất bằng các giải pháp AI thế hệ mới.</p>
-            <div class="cta-buttons">
-                <a href="#" class="btn btn-primary">Khám phá ngay</a>
-                <a href="#" class="btn btn-secondary">Xem bảng giá</a>
+    <main>
+        <section class="hero">
+            <div class="badge-promo">
+                <span class="badge-tag">MỚI</span>
+                <span style="color: var(--text-muted)">Tích hợp tác vụ tự động hóa Megamenu</span>
+            </div>
+            <h1>Phát triển sản phẩm công nghệ<br>Thao tác tối ưu với <span>Sức mạnh AI</span></h1>
+            <p>Giải pháp front-end tự động cấu trúc layout, điều phối thành phần giao diện chất lượng cao giúp tiết kiệm chi phí vận hành.</p>
+            
+            <div class="hero-ctas">
+                <a href="#" class="btn-premium" style="padding: 1rem 2.5rem; font-size: 1rem;">Khởi tạo dự án</a>
+                <a href="#" class="btn-pricing" style="padding: 1rem 2.5rem; font-size: 1rem; border-radius: 99px;">Liên hệ tư vấn</a>
+            </div>
+
+            <div class="dashboard-mockup">
+                <div class="dash-header">
+                    <div class="dash-circles">
+                        <div class="dash-circle"></div>
+                        <div class="dash-circle"></div>
+                        <div class="dash-circle"></div>
+                    </div>
+                    <div class="dash-search-mock"></div>
+                    <div style="width: 20px;"></div>
+                </div>
+                <div class="dash-body">
+                    <div class="dash-sidebar-mock">
+                        <div class="dash-side-item active"></div>
+                        <div class="dash-side-item"></div>
+                        <div class="dash-side-item"></div>
+                        <div class="dash-side-item"></div>
+                    </div>
+                    <div class="dash-main-mock">
+                        <div class="dash-card">
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">Hiệu năng hệ thống</span>
+                            <h4 style="font-size: 1.8rem; margin-top: 0.5rem; color: var(--secondary)">99.4%</h4>
+                            <div class="chart-mock">
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                            </div>
+                        </div>
+                        <div class="dash-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+                            <div>
+                                <span style="font-size: 0.8rem; color: var(--text-muted);">Băng thông dữ liệu</span>
+                                <h4 style="font-size: 1.8rem; margin-top: 0.5rem; color: #fff;">3.4 TB</h4>
+                            </div>
+                            <div style="height: 8px; background: rgba(255,255,255,0.05); border-radius: 99px; overflow:hidden;">
+                                <div style="width: 75%; height: 100%; background: var(--gradient-accent);"></div>
+                            </div>
+                            <span style="font-size: 0.75rem; color: var(--text-muted)">Hoạt động tối ưu mượt mà</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section class="image-section">
-            <div class="image-wrapper">
-                <img src="image_a33a5e.jpg" alt="AI Web rẻ hơn không? Có!">
+        <section class="pricing-section" id="pricing">
+            <h2>Bảng giá dịch vụ linh hoạt</h2>
+            <p>Chọn gói giải pháp tối ưu nhất cho kế hoạch mở rộng quy mô của bạn</p>
+            
+            <div class="toggle-container">
+                <button class="toggle-btn active" id="btn-monthly" onclick="setBilling('monthly')">Thanh toán tháng</button>
+                <button class="toggle-btn" id="btn-yearly" onclick="setBilling('yearly')">
+                    Thanh toán năm <span class="save-badge">-20%</span>
+                </button>
+            </div>
+
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3>Cơ bản</h3>
+                    <p class="desc">Dành cho cá nhân trải nghiệm thử thách lập trình công nghệ.</p>
+                    <div class="price-amount" id="price-starter">0k <span>/ tháng</span></div>
+                    <ul class="features-list">
+                        <li class="feature-item">
+                            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Tích hợp Mega Menu tĩnh
+                        </li>
+                        <li class="feature-item">
+                            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Băng thông cơ bản 5GB
+                        </li>
+                    </ul>
+                    <a href="#" class="btn-pricing">Trải nghiệm ngay</a>
+                </div>
+
+                <div class="price-card popular">
+                    <div class="popular-tag">Phổ biến nhất</div>
+                    <h3>Chuyên nghiệp</h3>
+                    <p class="desc">Dành cho các đội ngũ phát triển và tối ưu UI/UX nâng cao.</p>
+                    <div class="price-amount" id="price-pro">490k <span>/ tháng</span></div>
+                    <ul class="features-list">
+                        <li class="feature-item">
+                            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Mega Menu tương tác cao cấp
+                        </li>
+                        <li class="feature-item">
+                            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Không giới hạn băng thông dữ liệu
+                        </li>
+                        <li class="feature-item">
+                            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Hỗ trợ kỹ thuật 24/7
+                        </li>
+                    </ul>
+                    <a href="#" class="btn-pricing">Nâng cấp Pro</a>
+                </div>
+
+                <div class="price-card">
+                    <h3>Doanh nghiệp</h3>
+                    <p class="desc">Hệ thống mở rộng quy mô lớn, bảo mật lớp doanh nghiệp.</p>
+                    <div class="price-amount" id="price-enterprise">990k <span>/ tháng</span></div>
+                    <ul class="features-list">
+                        <li class="feature-item">
+                            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Toàn bộ quyền năng bản V2.5
+                        </li>
+                        <li class="feature-item">
+                            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Mã hóa cơ sở dữ liệu riêng biệt
+                        </li>
+                    </ul>
+                    <a href="#" class="btn-pricing">Liên hệ chúng tôi</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2>Câu hỏi thường gặp</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-trigger" onclick="toggleFaq(this)">
+                        <span>Làm cách nào để cấu hình Mega Menu động?</span>
+                        <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-content">
+                        <p>Bạn chỉ cần giữ nguyên cấu trúc HTML lồng phân cấp trong nhóm class `nav-item` và `megamenu`. CSS của hệ thống đã tự động tính toán vị trí hiển thị tối ưu nhất cho bạn.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-trigger" onclick="toggleFaq(this)">
+                        <span>Hệ thống có cần tải thêm hình ảnh từ ngoài không?</span>
+                        <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-content">
+                        <p>Không, toàn bộ trang web sử dụng công nghệ vẽ đồ họa vector (Inline SVG) và hiệu ứng chuyển màu của CSS (Gradients). Đảm bảo tốc độ tải trang đạt điểm tối đa trên mọi công cụ đo lường.</p>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo" style="font-size:1.4rem;">NexAI</a>
+                <p>Nền tảng kiến tạo tương lai giao diện web chuyên nghiệp bằng trí tuệ nhân tạo.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Sản phẩm</h4>
+                <ul>
+                    <li><a href="#">Tính năng</a></li>
+                    <li><a href="#">Bảng giá</a></li>
+                    <li><a href="#">Bảo mật</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Công ty</h4>
+                <ul>
+                    <li><a href="#">Giới thiệu</a></li>
+                    <li><a href="#">Tuyển dụng</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Pháp lý</h4>
+                <ul>
+                    <li><a href="#">Điều khoản</a></li>
+                    <li><a href="#">Bảo mật</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- CHỨC NĂNG 1: CHUYỂN ĐỔI GIÁ THEO THÁNG / NĂM ---
+        function setBilling(plan) {
+            const btnMonthly = document.getElementById('btn-monthly');
+            const btnYearly = document.getElementById('btn-yearly');
+            
+            const pricePro = document.getElementById('price-pro');
+            const priceEnterprise = document.getElementById('price-enterprise');
+
+            if (plan === 'yearly') {
+                btnMonthly.classList.remove('active');
+                btnYearly.classList.add('active');
+                
+                // Cập nhật giá trị đã giảm 20% khi mua theo năm
+                pricePro.innerHTML = "390k <span>/ tháng (Trả năm)</span>";
+                priceEnterprise.innerHTML = "790k <span>/ tháng (Trả năm)</span>";
+            } else {
+                btnYearly.classList.remove('active');
+                btnMonthly.classList.add('active');
+                
+                // Trả về giá mặc định theo tháng
+                pricePro.innerHTML = "490k <span>/ tháng</span>";
+                priceEnterprise.innerHTML = "990k <span>/ tháng</span>";
+            }
+        }
+
+        // --- CHỨC NĂNG 2: HIỆU ỨNG ACCORDION CHO KHỐI FAQ ---
+        function toggleFaq(button) {
+            const faqItem = button.parentElement;
+            const content = button.nextElementSibling;
+            
+            // Đóng tất cả các FAQ khác đang mở (Tạo hiệu ứng chuẩn)
+            document.querySelectorAll('.faq-item').forEach(item => {
+                if (item !== faqItem) {
+                    item.classList.remove('active');
+                    item.querySelector('.faq-content').style.maxHeight = null;
+                }
+            });
+
+            // Chuyển đổi trạng thái FAQ hiện tại
+            faqItem.classList.toggle('active');
+            if (faqItem.classList.contains('active')) {
+                content.style.maxHeight = content.scrollHeight + "px";
+            } else {
+                content.style.maxHeight = null;
+            }
+        }
+    </script>
 </body>
 </html>
